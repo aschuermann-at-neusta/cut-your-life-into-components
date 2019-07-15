@@ -1,0 +1,7 @@
+<app-login-formular (login)="credentials.emit($event)" *ngIf="!isLoggedIn"></app-login-formular>
+
+<ng-container *ngIf="isLoggedIn">
+  <app-user-mini-view [user]="user" ></app-user-mini-view>
+  <button (click)="logout.emit(true)"> Logout! </button>
+</ng-container>
+

@@ -1,0 +1,1 @@
+<app-login-view [user]="loginApi.user$ | async" [isLoggedIn]="loginApi.isLoggedIn$ | async" (credentials)="doLogin($event)" (logout)="doLogout()"></app-login-view>
