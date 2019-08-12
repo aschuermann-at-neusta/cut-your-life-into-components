@@ -4,13 +4,18 @@ import { InfoboxModule } from '../infobox/infobox.module';
 import { LoginBoxModule } from '../login/login-box/login-box.module';
 import { LoginModule } from '../login/login.module';
 import { StartpageComponent } from './startpage/startpage.component';
+import { NavigationModule } from '../navigation/navigation.module';
+import { ProfileComponent } from '../profile/profile/profile.component';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
   declarations: [StartpageComponent],
   imports: [
     CommonModule,
     InfoboxModule,
-    LoginBoxModule
+    LoginBoxModule,
+    NavigationModule,
+    ProfileModule
   ],
   exports: [
     StartpageComponent

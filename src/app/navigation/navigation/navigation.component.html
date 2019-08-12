@@ -1,3 +1,1 @@
-<p>
-  navigation works!
-</p>
+<app-navigation-list [navigationEntries]="navigationService.navigationEntrys" (activateEntry)="navigationService.navigateTo($event)" [activeEntry]="navigationService.location$ | async"></app-navigation-list>

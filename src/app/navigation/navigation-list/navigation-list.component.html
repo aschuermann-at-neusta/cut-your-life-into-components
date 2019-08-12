@@ -1,0 +1,6 @@
+<ul *ngIf="navigationEntries">
+    <app-navigation-entry *ngFor="let navigation of navigationEntries"
+    [title]="navigation.title"
+    [active]="activeEntry && navigation.title === activeEntry.title" 
+    (activate)="activateEntry.emit(navigation)"></app-navigation-entry>
+  </ul>

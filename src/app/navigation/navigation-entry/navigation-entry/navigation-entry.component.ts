@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-navigation-entry',
@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavigationEntryComponent implements OnInit {
   @Input() title: string;
   @Input() active: boolean;
+  @Output() activate: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() { }
 
