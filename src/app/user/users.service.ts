@@ -23,7 +23,7 @@ export class UsersService {
       firstname: 'Andrea',
       lastname: 'Schürmann'
     }
-  ])
+  ]);
 
   constructor() { }
 }

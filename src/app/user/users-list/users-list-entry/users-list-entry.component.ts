@@ -1,4 +1,4 @@
-import { UserInterface } from './../user';
+import { UserInterface } from '../../user';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

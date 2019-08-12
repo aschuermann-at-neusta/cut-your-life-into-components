@@ -1,1 +1,4 @@
-<app-users-list-view [users]="usersService.users$ | async"></app-users-list-view>
+<app-users-list-view
+  (clickedUser)="clickedUser.emit($event)"
+  [users]="usersService.users$ | async">
+</app-users-list-view>

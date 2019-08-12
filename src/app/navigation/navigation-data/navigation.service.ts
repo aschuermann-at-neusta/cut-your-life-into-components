@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { NavigationEntryInterface } from '../navigation-entry-interface';
 
@@ -8,11 +9,18 @@ import { NavigationEntryInterface } from '../navigation-entry-interface';
 export class NavigationService {
   private location: ReplaySubject<NavigationEntryInterface> = new ReplaySubject<NavigationEntryInterface>(1);
   location$: Observable<NavigationEntryInterface> = this.location.asObservable();
-  navigationEntrys: NavigationEntryInterface[] = [{title: 'Startpage'}, {title: 'Aldi'}, {title: 'Bora Bora'}];
+  navigationEntrys: NavigationEntryInterface[] = [
+    {title: 'Startpage', path: 'start'},
+    {title: 'Profile', path: 'profile'},
+    {title: 'Users', path: 'users'},
+    {title: 'Login', path: 'login'}
+    ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   navigateTo(entry: NavigationEntryInterface) {
-    this.location.next(entry);
+    this.router.navigate([entry.path]).then(success => {
+      this.location.next(entry);
+    });
   }
 }

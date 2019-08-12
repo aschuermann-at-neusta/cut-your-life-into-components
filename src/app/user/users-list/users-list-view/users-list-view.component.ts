@@ -1,5 +1,5 @@
-import { UserInterface } from './../user';
-import { Component, OnInit, Input } from '@angular/core';
+import { UserInterface } from '../../user';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-users-list-view',
@@ -8,10 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UsersListViewComponent implements OnInit {
   @Input() users: UserInterface[];
+  @Output() clickedUser: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  userClicked(user: UserInterface) {
+    this.clickedUser.emit(user);
+  }
 }
