@@ -1,19 +1,19 @@
-import { ProfileDetailNameModule } from '../profile/profile-detail/profile-detail-name/profile-detail-name.module';
-import { ProfileModule } from './../profile/profile.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserMiniViewComponent } from './user-mini-view/user-mini-view.component';
-import { UsersListEntryComponent } from './users-list/users-list-entry/users-list-entry.component';
-import { UsersListViewComponent } from './users-list/users-list-view/users-list-view.component';
-import { UsersListComponent } from './users-list/users-list.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
+import { NgModule } from '@angular/core';
+import { ProfileDetailNameModule } from '../profile/profile-detail/profile-detail-name/profile-detail-name.module';
+import { UserDetailModule } from './user-detail/user-detail.module';
+import { UserRoutingModule } from './user-routing.module';
+import { UsersListModule } from './users-list/users-list.module';
 
 @NgModule({
-  declarations: [UserMiniViewComponent, UsersListComponent, UsersListViewComponent, UsersListEntryComponent, UserDetailComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    ProfileDetailNameModule
+    ProfileDetailNameModule,
+    UsersListModule,
+    UserDetailModule,
+    UserRoutingModule
   ],
-  exports: [UserMiniViewComponent]
+  exports: []
 })
 export class UserModule { }

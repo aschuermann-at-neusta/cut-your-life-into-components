@@ -1,4 +1,5 @@
+<h3>Users</h3>
 <app-users-list-view
-  (clickedUser)="clickedUser.emit($event)"
+  (clickedUser)="navigateToUserProfile($event)"
   [users]="usersService.users$ | async">
 </app-users-list-view>

@@ -1,4 +1,4 @@
-import { ProfileInterface } from './../profile-interface';
+import { ProfileInterface } from '../profile-interface';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

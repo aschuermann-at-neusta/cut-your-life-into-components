@@ -1,0 +1,3 @@
+<app-timebox-view *ngIf="stateService.isStateSilent() | async" (start)="startTimer($event)"></app-timebox-view>
+<app-timer-view *ngIf="stateService.isStateRunning() | async" [time]="millisecondsTillEnd"></app-timer-view>
+<app-timer-sound-view *ngIf="stateService.isStateReached() | async"></app-timer-sound-view>
