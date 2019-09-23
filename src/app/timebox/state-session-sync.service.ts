@@ -22,8 +22,6 @@ export class StateSessionSyncService {
     });
 
     const state: State = this.stateStorageService.getStateFromSession();
-    if (this.stateFunctionMapping.has(state)) {
-      this.stateFunctionMapping.get(state)();
-    }
+    this.stateService.init(state);
   }
 }

@@ -1,33 +1,36 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import { State } from './state.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
-  private currentState: BehaviorSubject<State> = new BehaviorSubject<State>(State.SILENT);
+  private currentState: ReplaySubject<State> = new ReplaySubject<State>(1);
   currentState$ = this.currentState.asObservable();
 
-  constructor() {
+  init(state: State = State.SILENT) {
+    this.setNewState(state);
   }
 
-  private setNewState(newState: State) {
-    if (this.isStateChangeSilentToRunning(newState) ||
-      this.isStateChangeRunningToReached(newState) || this.isStateChangeReachedToSilent(newState)) {
-      this.currentState.next(newState);
-    }
+  private setNewState(newState: State): void {
+    this.currentState$ = this.currentState$.pipe(
+      filter((state: State) => this.isValidStateChange(state, newState)),
+      tap((_) => {
+        this.handleStateChangeToReached(newState);
+      }),
+      map((_) => newState)
+    );
+  }
+
+  private handleStateChangeToReached(newState: State) {
     if (newState === State.REACHED) {
       setTimeout(() => {
         this.setNewState(State.SILENT);
         console.log('Timeout erreicht');
       }, 6000);
     }
-  }
-
-  private isStateChangeRunningToReached(newState: State) {
-    return newState === State.REACHED && this.currentState.value === State.RUNNING;
   }
 
   setStateRunning() {
@@ -56,11 +59,23 @@ export class StateService {
     this.setNewState(State.REACHED);
   }
 
-  private isStateChangeSilentToRunning(newState: State): boolean {
-    return newState === State.RUNNING && this.currentState.value === State.SILENT;
+  private isStateChangeRunningToReached(state: State, newState: State) {
+    return newState === State.REACHED && state === State.RUNNING;
   }
 
-  private isStateChangeReachedToSilent(newState: State): boolean {
-    return newState === State.SILENT && this.currentState.value === State.REACHED;
+  private isStateChangeSilentToRunning(state: State, newState: State): boolean {
+    return newState === State.RUNNING && state === State.SILENT;
+  }
+
+  private isStateChangeReachedToSilent(state: State, newState: State): boolean {
+    return newState === State.SILENT && state === State.REACHED;
+  }
+
+  private isValidStateChange(state: State, newState: State): boolean {
+    return (
+      this.isStateChangeSilentToRunning(state, newState) ||
+      this.isStateChangeRunningToReached(state, newState) ||
+      this.isStateChangeReachedToSilent(state, newState)
+    );
   }
 }
